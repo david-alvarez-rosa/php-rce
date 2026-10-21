@@ -1,0 +1,12 @@
+[project]
+name = "php-rce"
+version = "1.0.0"
+description = "PHP Remote Code Execution — CVE-2026-109618/109619"
+requires-python = ">=3.10"
+
+[project.scripts]
+php-rce = "php_rce:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

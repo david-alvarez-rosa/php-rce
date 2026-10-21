@@ -1,0 +1,8 @@
+version = 1
+revision = 5
+requires-python = ">=3.10"
+
+[[package]]
+name = "php-rce"
+version = "1.0.0"
+source = { editable = "." }
