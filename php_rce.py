@@ -12,7 +12,12 @@ from exploits.serialize_uaf import serialize_uaf
 from exploits.unserialize_uaf import unserialize_uaf
 from exploits.fast_fire import fast_fire
 
-EXPLOITS = [session_lfi, serialize_uaf, unserialize_uaf, fast_fire]
+EXPLOITS = [
+    # session_lfi,
+    serialize_uaf,
+    unserialize_uaf,
+    fast_fire,
+]
 
 
 def main():
