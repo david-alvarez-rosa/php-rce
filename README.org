@@ -19,9 +19,9 @@ achieve RCE on vulnerable PHP targets.
 
 ** Exploits
 
-- session_lfi :: session file inclusion
-- serialize_uaf :: serialize use-after-free
-- unserialize_uaf :: unserialize use-after-free
 - fast_fire :: race-condition based execution
+- unserialize_uaf :: unserialize use-after-free
+- serialize_uaf :: serialize use-after-free
+- session_lfi :: session file inclusion
 
 They run sequentially, the first successful one runs the command.
